@@ -249,3 +249,12 @@ accounting view, not another additive return source.
 - 残る制約: 企業は既存10社。全社が破綻した場合に新企業や無根拠な再生は生成しない。月数の上限はu32とローカルの記憶容量に制約される。CLIサンプルは評価月で止める。
 - 長期運用で表面化する境界条件も修正: 元の満期日を過ぎたDefault請求権を早期に消さず、回収金の支払いまで保持。回収前に消失せず二重損失も出ないテストを追加。
 - 検証結果: 全40テスト、Clippy warnings deny、format、release build成功。HTTPで24→25か月進行、売買、24か月セーブからの再開、40か月までの新債発生、40か月セーブ・復元を確認。ホームの実行ファイルを更新。
+
+## v0.1.1 配布と公開
+
+- READMEをプレイヤー向けの紹介と起動手順に整理し、詳細を技術ガイドへ移動。開発にOpenAI Codexを使用したことをREADME・画面・配布物に明記。
+- OS別フォルダ、起動スクリプト、MIT・依存ライセンス、ソース、検証情報、SHA256を同梱。実行時の追加ツールは不要。
+- Linux両CPUで40か月・保存復元・再起動を確認。OpenBSD 7.9 arm64も全40テストと40か月HTTP操作・売買・保存復元が成功。
+- OpenBSD配布はstrip済みdev profile。Intel MacとWindowsはクロスビルドのみの試験版、AndroidはCore確認まで。
+- 公開先: https://github.com/relemon8/tdn-credit 。個人セーブ・認証情報は含めない。
+- Breaking change: なし。次は未検証環境の実機確認とOpenBSDの最適化配布。
