@@ -4,6 +4,7 @@
 
 - macOS arm64: 全40テスト、24か月のHTTPリプレイ、語録ON/OFFの金融一致、Firefox全5画面（1440px・390px）を確認。
 - Linux x86_64 / aarch64: 新規musl静的ビルドをQEMU Linux内で実行。24か月ヘッドレス、40か月HTTP進行、借り換え債の生成、手動セーブ・ロード、プロセス再起動後の復元に成功。ゲストに外部ネットワークなし。
+- OpenBSD 7.9 arm64: ネイティブ環境で全40テスト、24か月ヘッドレス、HTTP操作・売買・保存復元を確認。配布バイナリはdev profileをstripしたもの（最適化なし）。
 - macOS x86_64: クロスビルド成功。Intel実機とRosetta実行は未確認。
 - Windows x86_64 GNU: PE実行ファイルのクロスビルド成功。Windowsでの実行・ブラウザ・保存パスは未検証。試験版扱い。
 - Android: aarch64向けCoreコンパイル確認。APKは未作成、単体実機起動は未検証。

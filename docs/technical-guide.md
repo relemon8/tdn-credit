@@ -1,24 +1,6 @@
-# TDN CREDIT
+# 技術ガイド
 
-v0.1.1 / 完全無料・MIT・ローカル保存
-
-[ダウンロード（Releases）](https://github.com/relemon8/tdn-credit/releases) / [更新履歴](CHANGELOG.md)
-
-架空のクレジットファンドを運用する、ローカル実行のブラウザゲーム。
-初期65億円・Cash 100%、10 Issuer / 初期20 Bond、24か月で成績評価・以降も継続可能。
-
-良い会社と、良い価格の投資は別物です。ニュース、利回り、Spread、
-企業のCash Flowを観察し、ポジションを取り、損益の理由を振り返ります。
-クイズや自動売買推奨はありません。
-
-## 配布版の選び方
-
-配布フォルダ名のOSとCPUを確認してください。Linuxのx86_64は一般的なIntel/AMD PC、aarch64はARM64です。macOSのaarch64はApple Silicon、x86_64はIntel Mac用です。
-各版にREADME、はじめに.txt、LICENSE、依存ライセンス、BUILD_INFO.jsonを同梱します。BUILD_INFO.jsonにはその版の動作確認状況を明記しています。
-
-GitHubのソース一覧からはビルドが必要です。遊ぶだけならReleasesの対応OS用zipまたはtar.gzを取得してください。
-
-[GitHubでの公開手順](docs/github-release.md) / [更新履歴](CHANGELOG.md)
+起動オプション、保存先、ビルド方法、金融モデルの補足をまとめています。遊び方の概要は[README](../README.md)をご覧ください。
 
 ## 起動
 
