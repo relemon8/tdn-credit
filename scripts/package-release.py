@@ -71,7 +71,7 @@ def main():
         shutil.copy2(args.binary, folder / binary_name)
         (folder / binary_name).chmod(0o755)
         info['binary_sha256'] = digest(folder / binary_name)
-        quick = f'''TDN CREDIT {VERSION} / {label}\n\n動作確認状況: {args.status}\n\n【起動】\n展開したフォルダで ./tdn-credit --portable を実行します。\nWindowsは tdn-credit.exe、または start.bat を起動します。\nブラウザで http://127.0.0.1:3000 を開きます。Ctrl+Cで終了。\n同梱の起動スクリプトを使うと、このフォルダ内のdataに保存します。\n\n【必要なもの】\n対応OSとブラウザだけ。Node、Rust、Python、APIキーは不要です。\n\n【ゲーム】\n初期65億円。24か月で成績評価し、その後も継続できます。\n画面下部の遊び方から30秒版・詳しい版を読めます。\n\n【免責】\n資金・企業・証券は架空です。実際のお金は使わず換金もできません。\n投資助言ではありません。完全無料・MITライセンス。LLMによる開発支援を使用。\n詳細はREADME.md、LICENSE、THIRD_PARTY_NOTICES.mdを参照してください。\n'''
+        quick = f'''TDN CREDIT {VERSION} / {label}\n\n動作確認状況: {args.status}\n\n【起動】\n展開したフォルダで ./tdn-credit --portable を実行します。\nWindowsは tdn-credit.exe、または start.bat を起動します。\nブラウザで http://127.0.0.1:3000 を開きます。Ctrl+Cで終了。\n同梱の起動スクリプトを使うと、このフォルダ内のdataに保存します。\n\n【必要なもの】\n対応OSとブラウザだけ。Node、Rust、Python、APIキーは不要です。\n\n【ゲーム】\n初期65億円。24か月で成績評価し、その後も継続できます。\n画面下部の遊び方から30秒版・詳しい版を読めます。\n\n【免責】\n資金・企業・証券は架空です。実際のお金は使わず換金もできません。\n投資助言ではありません。完全無料・MITライセンス。OpenAI Codexを使用して開発しています。\n詳細はREADME.md、LICENSE、THIRD_PARTY_NOTICES.mdを参照してください。\n'''
         (folder / 'はじめに.txt').write_text(quick, encoding='utf-8')
         if 'windows' in label:
             (folder / 'start.bat').write_bytes(b'@echo off\r\ncd /d "%~dp0"\r\ntdn-credit.exe --portable\r\npause\r\n')

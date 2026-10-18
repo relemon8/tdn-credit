@@ -1340,7 +1340,7 @@ pub fn render(
                     </details>
                 </main>
                 <footer>
-                    <span>"オフライン対応・データ送信なし・MIT・LLM開発支援使用"</span>
+                    <span>"オフライン対応・データ送信なし・MIT・OpenAI Codexを使用して開発"</span>
                     <span>
                         {p.current_meme.clone().filter(|_| p.meme_enabled).unwrap_or_default()}
                     </span>
