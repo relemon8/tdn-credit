@@ -1,0 +1,17 @@
+[package]
+name = "credit-storage"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+[dependencies]
+credit-core = { path = "../credit-core" }
+credit-presentation = { path = "../credit-presentation" }
+rusqlite = { version = "0.38", features = ["bundled"] }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+credit-data = { path = "../credit-data" }
+tempfile = "3"

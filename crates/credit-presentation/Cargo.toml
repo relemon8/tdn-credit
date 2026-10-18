@@ -1,0 +1,13 @@
+[package]
+name = "credit-presentation"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+[dependencies]
+credit-core = { path = "../credit-core" }
+serde.workspace = true
+
+[dev-dependencies]
+credit-data = { path = "../credit-data" }
+serde_json.workspace = true

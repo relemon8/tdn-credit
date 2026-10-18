@@ -1,0 +1,10 @@
+TDN CREDIT 0.1.0 / data version 2 / final local verification
+Native macOS arm64: 31 tests, fmt, Clippy -D warnings, full HTTP replay passed.
+OpenBSD 7.9 arm64: native Rust 1.94.1; 31 tests, release build, headless and HTTP replay passed.
+Linux aarch64: 31 tests in final VM pass; headless, HTTP 24 turns and restart/load passed.
+Linux x86_64: final binary headless/HTTP 24-turn replay and restart/load passed.
+Linux x86_64 initial VM pass additionally ran 24 finance/meme/save tests.
+Seed 1919: all 24 integer-JPY NAV and benchmark NAV observations match macOS, Linux x86_64/aarch64 and OpenBSD arm64.
+Android/Windows: Core cross-check only. Physical/native application runtime not certified.
+Firefox: 1440/768px native viewports and actual 390px iframe CSS viewport; five pages have no document overflow.
+License audit: cargo deny check licenses passed; runtime notices included.

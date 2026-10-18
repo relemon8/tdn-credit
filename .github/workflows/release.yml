@@ -1,0 +1,111 @@
+name: Release packages
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  linux:
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            target: x86_64-unknown-linux-musl
+          - runner: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-musl
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v5
+      - run: rustup update stable --no-self-update
+      - run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - run: rustup target add ${{ matrix.target }}
+      - run: cargo test --workspace --locked
+      - run: cargo build --release --locked --target ${{ matrix.target }} -p tdn-credit
+      - run: target/${{ matrix.target }}/release/tdn-credit --headless
+      - run: python3 scripts/package-release.py --binary target/${{ matrix.target }}/release/tdn-credit --target ${{ matrix.target }} --status "Native Linux build, tests and headless passed in CI"
+      - if: matrix.target == 'x86_64-unknown-linux-musl'
+        run: python3 scripts/package-release.py --source
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.target }}
+          path: |
+            dist/**/*.tar.gz
+            dist/**/*.zip
+            dist/**/*.manifest.json
+          if-no-files-found: error
+  openbsd:
+    needs: linux
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [x86_64, aarch64]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: vmactions/openbsd-vm@v1
+        with:
+          release: '7.9'
+          arch: ${{ matrix.arch }}
+          mem: 6144
+          prepare: pkg_add rust python3
+          run: |
+            set -eu
+            export CARGO_BUILD_JOBS=2
+            cargo test --workspace --locked
+            cargo build --release --locked -p tdn-credit
+            ./target/release/tdn-credit --headless
+            python3 scripts/package-release.py --binary target/release/tdn-credit --target "${{ matrix.arch }}-unknown-openbsd-7.9" --status "Native OpenBSD VM build, tests and headless passed in CI"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-openbsd-${{ matrix.arch }}
+          path: |
+            dist/**/*.tar.gz
+            dist/**/*.zip
+            dist/**/*.manifest.json
+          if-no-files-found: error
+  macos:
+    needs: openbsd
+    strategy:
+      matrix:
+        include:
+          - runner: macos-15
+            target: aarch64-apple-darwin
+          - runner: macos-15-intel
+            target: x86_64-apple-darwin
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v5
+      - run: cargo test --workspace --locked
+      - run: cargo build --release --locked -p tdn-credit
+      - run: ./target/release/tdn-credit --headless
+      - run: python3 scripts/package-release.py --binary target/release/tdn-credit --target ${{ matrix.target }} --status "Native macOS build, tests and headless passed in CI; unsigned binary"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.target }}
+          path: |
+            dist/**/*.tar.gz
+            dist/**/*.zip
+            dist/**/*.manifest.json
+          if-no-files-found: error
+  android-core:
+    needs: macos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: rustup target add aarch64-linux-android
+      - run: cargo check --locked --target aarch64-linux-android -p credit-core
+      # No APK is produced: a Core check does not validate Android gameplay.
+  windows:
+    needs: android-core
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: cargo test --workspace --locked
+      - run: cargo build --release --locked -p tdn-credit
+      - run: ./target/release/tdn-credit.exe --headless
+      - run: python scripts/package-release.py --binary target/release/tdn-credit.exe --target x86_64-pc-windows-msvc --status "Native Windows build, tests and headless passed in CI"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-windows-x86_64
+          path: |
+            dist/**/*.zip
+            dist/**/*.manifest.json
+          if-no-files-found: error

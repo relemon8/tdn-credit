@@ -1,0 +1,18 @@
+[package]
+name = "credit-server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+[dependencies]
+credit-core = { path = "../credit-core" }
+credit-data = { path = "../credit-data" }
+credit-ui = { path = "../credit-ui" }
+credit-storage = { path = "../credit-storage" }
+credit-presentation = { path = "../credit-presentation" }
+axum = { version = "0.8", features = ["form"] }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "macros", "signal"] }
+serde.workspace = true
+serde_json.workspace = true
+blake3.workspace = true
+getrandom = "0.3"

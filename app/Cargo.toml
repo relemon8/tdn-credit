@@ -1,0 +1,15 @@
+[package]
+name = "tdn-credit"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+credit-core = { path = "../crates/credit-core" }
+credit-data = { path = "../crates/credit-data" }
+serde_json.workspace = true
+credit-server = { path = "../crates/credit-server" }
+credit-storage = { path = "../crates/credit-storage" }
+credit-platform = { path = "../crates/credit-platform" }
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
